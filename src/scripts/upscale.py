@@ -18,8 +18,8 @@ def write_image(name, result, path_to_output):
             raise Exception
         else:
             return True
-    except Exception:
-        print("Not able to write")
+    except Exception as e:
+        print("Not able to write "+str(e))
         exit()
 
 def upscale(sr, name, path_to_input, path_to_output):
