@@ -4,7 +4,7 @@ import os
 def read_image(name):
     try:
         if os.path.isfile('/home/tubex/Documents/projects/upscaling/input/'+name):
-            return cv2.imread('/home/tubex/Documents/projects/upscaling/input/'+name)
+            return cv2.imread('/home/tubex/Documents/projects/upscaling/input/'+name), True
         else:
             raise Exception
     except:
@@ -17,7 +17,7 @@ def write_image(name, result):
 def upscale(sr,name):
     try:
         animated_marker()
-        img = read_image(name)
+        img = read_image(name)[0]
         result = sr.upsample(img)
         write_image(name, result)
         print("\n Done")

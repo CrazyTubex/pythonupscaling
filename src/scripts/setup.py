@@ -12,9 +12,9 @@ def setup():
             sr = dnn_superres.DnnSuperResImpl_create()
             sr.readModel("/home/tubex/Documents/projects/upscaling/models/EDSR_x4.pb")
             sr.setModel("edsr", 4)
-            return sr
+            return sr, True
         else:
             raise Exception
     except Exception as e:
         print("Unable to setup the model, error " + str(e))
-        return False
+        return e, False
