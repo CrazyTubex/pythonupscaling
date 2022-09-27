@@ -8,11 +8,11 @@ import unittest
 
 class TestUpScale(unittest.TestCase):
     def test_setup(self):
-        self.assertNotEqual(setup(), False)
+        self.assertNotEqual(setup()[1], False)
     def test_read_image(self):
         self.assertEqual(read_image('imageforunittest.png')[1], True)
     def test_upscale(self):
-        self.assertEqual(upscale(setup(), 'imageforunittest.png'), True)
+        self.assertEqual(upscale(setup()[0], 'imageforunittest.png'), True)
         
     
 

@@ -6,11 +6,10 @@ def main():
         print("Input name of image in input folder, include the extension")
         name = input()
         sr = setup()
-        #print(sr)
-        if sr == False:
+        if sr[0] == False:
             raise Exception
-        upscale(sr, name)
-        #print(sr)
+        print(sr)
+        upscale(sr[0], name)
     except Exception as e:
         print("error" + str(e))
         exit()
