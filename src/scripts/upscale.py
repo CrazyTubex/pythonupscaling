@@ -1,11 +1,15 @@
 from scripts.setup import cv2, time, progressbar
-
+import os
 
 def read_image(name):
     try:
-        return cv2.imread('/home/tubex/Documents/projects/upscaling/input/'+name)
+        if os.path.isfile('/home/tubex/Documents/projects/upscaling/input/'+name):
+            return cv2.imread('/home/tubex/Documents/projects/upscaling/input/'+name)
+        else:
+            raise Exception
     except:
         print("Error opening image")
+        exit()
 
 def write_image(name, result):
     cv2.imwrite('/home/tubex/Documents/projects/upscaling/output/'+name, result)
@@ -17,8 +21,10 @@ def upscale(sr,name):
         result = sr.upsample(img)
         write_image(name, result)
         print("\n Done")
-    except:
-        print("Unable to upscale image")
+        return True
+    except Exception as e:
+        print("Unable to upscale image"+str(e))
+        return False
 
 def animated_marker():
     widgets = ['Upscaling: ', progressbar.AnimatedMarker()]
