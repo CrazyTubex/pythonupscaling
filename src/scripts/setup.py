@@ -5,14 +5,23 @@ import sys
 import progressbar
 import time
 import os
+from pathlib import Path
+
 
 def setup():
+    directory = os.getcwd()
+    dir_root = Path(directory).parent
+
+    path_to_model = str(dir_root) + "/models/EDSR_x4.pb"
+    path_to_input = str(dir_root)+'/input/'
+    path_to_output = str(dir_root)+'/output/'
+
     try:
-        if os.path.isfile("/home/tubex/Documents/projects/upscaling/models/EDSR_x4.pb") and os.path.isdir('/home/tubex/Documents/projects/upscaling/input/') and os.path.isdir('/home/tubex/Documents/projects/upscaling/output/'):
+        if os.path.isfile(path_to_model) and os.path.isdir(path_to_input) and os.path.isdir(path_to_output):
             sr = dnn_superres.DnnSuperResImpl_create()
-            sr.readModel("/home/tubex/Documents/projects/upscaling/models/EDSR_x4.pb")
+            sr.readModel(path_to_model)
             sr.setModel("edsr", 4)
-            return sr, True
+            return sr, True, path_to_input, path_to_output
         else:
             raise Exception
     except Exception as e:

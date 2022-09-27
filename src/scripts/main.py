@@ -8,8 +8,7 @@ def main():
         sr = setup()
         if sr[0] == False:
             raise Exception
-        print(sr)
-        upscale(sr[0], name)
+        upscale(sr[0], name, sr[2], sr[3])
     except Exception as e:
         print("error" + str(e))
         exit()
