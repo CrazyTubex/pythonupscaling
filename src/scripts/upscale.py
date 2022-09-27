@@ -1,25 +1,33 @@
 from scripts.setup import cv2, time, progressbar
 import os
 
-def read_image(name):
+def read_image(name, path_to_input):
     try:
-        if os.path.isfile('/home/tubex/Documents/projects/upscaling/input/'+name):
-            return cv2.imread('/home/tubex/Documents/projects/upscaling/input/'+name), True
+        if os.path.isfile(path_to_input+name):
+            return cv2.imread(path_to_input+name), True
         else:
             raise Exception
     except:
-        print("Error opening image")
+        print("Error opening image"+path_to_input+name)
         exit()
 
-def write_image(name, result):
-    cv2.imwrite('/home/tubex/Documents/projects/upscaling/output/'+name, result)
+def write_image(name, result, path_to_output):
+    try:
+        cv2.imwrite(path_to_output+name, result)
+        if os.path.isfile(path_to_output+name) == False:
+            raise Exception
+        else:
+            return True
+    except Exception:
+        print("Not able to write")
+        exit()
 
-def upscale(sr,name):
+def upscale(sr, name, path_to_input, path_to_output):
     try:
         animated_marker()
-        img = read_image(name)[0]
+        img = read_image(name, path_to_input)[0]
         result = sr.upsample(img)
-        write_image(name, result)
+        write_image(name, result, path_to_output)
         print("\n Done")
         return True
     except Exception as e:
